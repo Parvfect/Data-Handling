@@ -5,18 +5,16 @@ import math
 T = [[]]
 X = [[]]
 Y = [[]]
-Theta = [[]]
-V = [[]]
 E = [[]]
 ptr = 0
 
-input_files = ['phy1','phy2','phy3','phy4']
+input_files = ['db1','db2','db3','db4']
 
 l = 198
 delt = 0.04
 
-v_x = []
-v_y = []
+V_x = []
+V_y = []
 
 def read_data(input_file):
 
@@ -24,9 +22,9 @@ def read_data(input_file):
     t = []
     x = []
     y = []
-    v = []
+    v_x = []
+    v_y = []
     en = []
-    theta = []
 
     file = open(input_file, "r")
     # Skipping two lines
@@ -44,59 +42,45 @@ def read_data(input_file):
         x.append(float(temp_arr[1]))
         y.append(float(temp_arr[2]))
 
-    """
-    DP
+    
     for i in range(len(x)-1):
-        v_x.append((x[i+1] - x[i])/T)
+        v_x.append((x[i+1] - x[i])/delt)
     
 
     for i in range(len(y)-1):
-        v_y.append((y[i+1] - y[i])/T)
-    """
-
+        v_y.append((y[i+1] - y[i])/delt)
     
-    for i in x:
-        val = math.asin(i/l) * (180/3.14)
-        #Normalising if val>18:
-         #   theta.append(17)
-        #else:
-        theta.append(math.asin(i/l) * (180/3.14))
-
+   
 
     for i in range(len(x)-1):
-        v.append((theta[i+1] - theta[i])/delt)
-    
-    v = [i/5 for i in v]
-    
-    for i in range(len(x)-1):
-        en.append(v[i] +y[i])
+        en.append(v_x[i] +v_y[i])
     
     en = [abs(i) for i in en]
 
     T.append(t)
     X.append(x)
     Y.append(y)
-    Theta.append(theta)
-    V.append(v)
+    V_x.append(v_x)
+    V_y.append(v_y)
     E.append(en)
     ptr+=1
 
 def plot():
 
-    plt.plot(T[4] , Theta[4] )
-    plt.plot(T[3] , Theta[3] )
-    plt.plot(T[2] , Theta[2] )
-    plt.plot(T[1] , Theta[1] )
-    plt.ylabel("Theta in degrees")
+    plt.plot(T[4][200:800] ,  X[4][200:800] )
+    plt.plot(T[3][200:800] ,  X[3][200:800] )
+    plt.plot(T[2][200:800] ,  X[2][200:800] )
+    plt.plot(T[1][200:800] ,  X[1][200:800] )
+    plt.ylabel(" X in mm")
     plt.xlabel("Time in seconds")
     plt.show()
 
-    plt.plot(Theta[4][:-1], V[4] )
-    plt.plot(Theta[3][:-1], V[3] )
-    plt.plot(Theta[2][:-1], V[2] )
-    plt.plot(Theta[1][:-1], V[1] )
-    plt.xlabel("Theta in degrees")
-    plt.ylabel("Theta velocity")
+    plt.plot( X[4][:-1],  V_x[3] )
+    plt.plot( X[3][:-1],  V_x[2] )
+    plt.plot( X[2][:-1],  V_x[1] )
+    plt.plot( X[1][:-1],  V_x[0] )
+    plt.xlabel(" X in mm")
+    plt.ylabel(" X velocity")
     plt.show()
 
 
