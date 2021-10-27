@@ -4,6 +4,13 @@
 # using the Light Sensor. The program then plots the intensity vs angle. The Plot is compared to verify Malus Law 
 # and the angle at which the intensity is maximum.
 
+# Equipment that is going to be connected to the Arduino - 
+# Micro Servo Motor 
+# Light Sensor
+# RGB Led
+# Accelerometer / Inclinometer (Potentially)
+# OLED Display (Potentially)
+
 # Interfacing with the Arduino
 import serial
 import time
