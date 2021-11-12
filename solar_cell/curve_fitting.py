@@ -1,8 +1,9 @@
 import numpy as np
 from scipy.optimize import curve_fit
+import scipy as sp
 import math
 import matplotlib.pyplot as plt
-
+from scipy.interpolate import interp1d
 
 
 x = list(range(1,100))
@@ -12,8 +13,9 @@ y = [math.exp(i) for i in x]
 def objective(x, a, b):
     return a*x + b
 
+
 def curve_fitting(x, y):
-    popt, pcov = curve_fit(objective, x, y, bounds=((-np.inf, -np.inf, 0, 0), (np.inf, np.inf, 1, 1)))
+    popt, pcov = curve_fit(objective, x, y, bounds = [-np.inf, np.inf])
     print(popt)
     a, b = popt
     y1 = [objective(i, a, b) for i in x]
