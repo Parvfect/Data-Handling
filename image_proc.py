@@ -23,11 +23,11 @@ def plot_histogram(img):
     plt.plot(bin_edges[0:-1], histogram)  # <- or here
     plt.show()
 
-
+ 
 def plot_hist(img):
     plt.hist(img.ravel(),256,[0,256]); plt.show()
 
-img = cv2.imread("data3.jpg", -1)
+img = cv2.imread("d3.jpg", -1)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
  
 
@@ -43,20 +43,23 @@ dim = (width, height)
   
 # resize image
 resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+img = resized
 
-"""
 img = NormalizeData(resized) 
-plt.plot(img)
-plt.show()
-"""
 
-# Get all the rows of the image in a 1d array
-x = []
 st = []
-for i in range(0,img.shape[0],75):
-    st.append(img[i][::75])
+for i in range(0,img.shape[0],10):
+    for j in range(0, len(img[i])):
+        if img[i][j] <  1.0:
+            img[i][j] = 0
+    st.append(img[i][::10])
+
 
 
 plt.title("Single Slit Pattern obtained on adding a Polariser")
-plt.plot(st)
+plt.plot(img)
 plt.show()
+
+
+
+ so we can neutralize all the pixels under the small vlaue such htat only the bright spots actually show up this is soo msart
